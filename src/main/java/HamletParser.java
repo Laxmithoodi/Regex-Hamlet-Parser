@@ -1,15 +1,28 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by thook on 10/7/15.
  */
 public class HamletParser {
 
+   private String oldString;
+   private String newString;
+   private String textFile;
+
     private String hamletData;
 
-    public HamletParser(){
+
+    public HamletParser(String textFile, String oldString, String newString){
+        this.oldString = oldString;
+        this.newString = newString;
+        this.textFile = textFile;
+
         this.hamletData = loadFile();
     }
 
@@ -33,7 +46,19 @@ public class HamletParser {
     }
 
     public String getHamletData(){
-        return hamletData;
+        String result = this.hamletData;
+
+
+       for(int i=0; i<oldString.length(); i++) {
+
+            Pattern ptn = Pattern.compile(oldString);
+            Matcher mtch = ptn.matcher(result);
+            result= mtch.replaceAll(newString);
+        }
+        return result;
     }
+
+
+
 
 }
