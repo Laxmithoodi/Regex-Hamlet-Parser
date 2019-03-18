@@ -11,14 +11,14 @@ import java.util.regex.Pattern;
  */
 public class HamletParser {
 
-   private String oldString;
-   private String newString;
-   private String textFile;
+    private String oldString;
+    private String newString;
+    private String textFile;
 
     private String hamletData;
 
 
-    public HamletParser(String textFile, String oldString, String newString){
+    public HamletParser(String textFile, String oldString, String newString) {
         this.oldString = oldString;
         this.newString = newString;
         this.textFile = textFile;
@@ -26,39 +26,35 @@ public class HamletParser {
         this.hamletData = loadFile();
     }
 
-    private String loadFile(){
+    private String loadFile() {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("hamlet.txt").getFile());
         StringBuilder result = new StringBuilder("");
 
-        try(Scanner scanner = new Scanner(file)){
-            while(scanner.hasNextLine()){
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 result.append(line).append("\n");
             }
 
             scanner.close();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         return result.toString();
     }
 
-    public String getHamletData(){
+    public String getHamletData() {
         String result = this.hamletData;
-
-
-       for(int i=0; i<oldString.length(); i++) {
-
+        for (int i = 0; i < oldString.length(); i++) {
             Pattern ptn = Pattern.compile(oldString);
-            Matcher mtch = ptn.matcher(result);
-            result= mtch.replaceAll(newString);
+            Matcher match = ptn.matcher(result);
+            result = match.replaceAll(newString);
         }
         return result;
     }
 
-
-
+// "(?i)[a-z]+")#
 
 }
