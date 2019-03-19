@@ -48,13 +48,12 @@ public class HamletParser {
     public String getHamletData() {
         String result = this.hamletData;
         for (int i = 0; i < oldString.length(); i++) {
-            Pattern ptn = Pattern.compile(oldString);
+            Pattern ptn = Pattern.compile(oldString, Pattern.CASE_INSENSITIVE);
             Matcher match = ptn.matcher(result);
             result = match.replaceAll(newString);
         }
         return result;
     }
 
-// "(?i)[a-z]+")#
 
 }
